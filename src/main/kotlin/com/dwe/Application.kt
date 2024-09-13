@@ -1,7 +1,9 @@
 package com.dwe
 
-import com.dwe.model.FakeTaskRepository
-import com.dwe.plugins.*
+import com.dwe.model.PostgresTaskRepository
+import com.dwe.plugins.configureDatabases
+import com.dwe.plugins.configureRouting
+import com.dwe.plugins.configureSerialization
 import io.ktor.server.application.*
 
 fun main(args: Array<String>) {
@@ -9,9 +11,9 @@ fun main(args: Array<String>) {
 }
 
 fun Application.module() {
-    val repository = FakeTaskRepository()
+    val repository = PostgresTaskRepository()
 
+    configureSerialization(repository)
     configureDatabases()
     configureRouting()
-    configureSerialization(repository)
 }
